@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Image, StyleSheet } from "react-native";
 import AppText from "../components/AppText";
-
 import ListItem from "../components/lists/ListItem";
 import colors from "../config/colors";
+import randomImage from "../assets/jacket.jpg";
 
 function ListingDetailsScreen({ navigation, route }) {
   const listing = route.params;
@@ -12,7 +12,7 @@ function ListingDetailsScreen({ navigation, route }) {
 
   return (
     <View>
-      <Image style={styles.image} source={listing.image} />
+      <Image style={styles.image} source={randomImage} />
       <View style={styles.detailsContainer}>
         <AppText style={styles.title}>{listing.title}</AppText>
         <AppText style={styles.price}>${listing.price}</AppText>

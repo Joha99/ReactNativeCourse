@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
-import * as Yup from "yup";
 import {
   AppForm,
   AppFormField,
@@ -9,8 +8,9 @@ import {
 } from "../components/forms";
 import Screen from "../components/Screen";
 import FormImagePicker from "../components/forms/FormImagePicker";
-import * as Location from "expo-location";
-import useLocation from "../hooks/useLocation";
+import * as Yup from "yup";
+import { db } from "../../firebase/firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -33,7 +33,19 @@ const categories = [
 ];
 
 function ListingEditScreen() {
-  const location = useLocation();
+  const addListing = async (listing) => {
+    try {
+      const docRef = await addDoc(collection(db, "listings"), {
+        title: listing.title,
+        price: listing.price,
+        description: listing.description,
+      });
+      console.log("Document written with ID: ", docRef.id);
+      alert("Succesfully added new listing");
+    } catch (e) {
+      console.error("Error adding new listing: ", e);
+    }
+  };
 
   return (
     <Screen style={styles.container}>
@@ -45,7 +57,10 @@ function ListingEditScreen() {
           category: null,
           images: [],
         }}
-        onSubmit={(values) => console.log(location)}
+        onSubmit={(values) => {
+          console.log(values);
+          addListing(values);
+        }}
         validationSchema={validationSchema}
       >
         <FormImagePicker name="images" />
@@ -84,4 +99,5 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+
 export default ListingEditScreen;

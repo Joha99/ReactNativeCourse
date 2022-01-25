@@ -4,9 +4,9 @@ import Screen from "../components/Screen";
 import Card from "../components/Card";
 import colors from "../config/colors";
 import routes from "../navigation/routes";
+import randomImage from "../assets/jacket.jpg";
 import { db } from "../../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
-import randomImage from "../assets/jacket.jpg";
 
 export default function ListingsScreen({ navigation }) {
   const [dbListings, setDbListings] = useState([]);
@@ -19,18 +19,6 @@ export default function ListingsScreen({ navigation }) {
     });
     setDbListings(dbListings);
   };
-
-  // const addListing = async (title, price) => {
-  //   try {
-  //     const docRef = await addDoc(collection(db, "listings"), {
-  //       word: text,
-  //     });
-  //     console.log("Document written with ID: ", docRef.id);
-  //     getWords();
-  //   } catch (e) {
-  //     console.error("Error adding document: ", e);
-  //   }
-  // };
 
   useEffect(() => {
     getListings();
