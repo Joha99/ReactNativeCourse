@@ -12,15 +12,6 @@ const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => (
   <Tab.Navigator screenOptions={{ headerShown: false }}>
-    {/* <Tab.Screen
-      name="Authenticate"
-      component={AuthNavigator}
-      options={{
-        tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="account" color={color} size={size} />
-        ),
-      }}
-    /> */}
     <Tab.Screen
       name="Feed"
       component={FeedNavigator}
