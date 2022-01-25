@@ -1,10 +1,11 @@
 import React from "react";
 import { AppForm, AppFormField, SubmitButton } from "../components/forms/index";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { StyleSheet, Image } from "react-native";
+import { auth } from "../../firebase/firebase";
 import Screen from "../components/Screen";
 import * as Yup from "yup";
-import { auth } from "../../firebase/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import routes from "../navigation/routes";
 
 // validation schema
 const validationSchema = Yup.object().shape({
@@ -18,7 +19,7 @@ export default function LoginScreen({ navigation }) {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("User signed in", user);
-        navigation.navigate("App");
+        navigation.navigate(routes.APP);
       })
       .catch((error) => {
         const errorMessage = error.message;

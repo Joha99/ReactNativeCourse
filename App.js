@@ -10,11 +10,8 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer theme={navigationTheme}>
-      {/* <AuthNavigator /> */}
-      {/* <AppNavigator />  */}
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Authenticate" component={AuthNavigator} />
-
         <Stack.Screen name="App" component={AppNavigator} />
       </Stack.Navigator>
     </NavigationContainer>

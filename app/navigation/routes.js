@@ -6,4 +6,5 @@ export default Object.freeze({
   MESSAGES: "Messages",
   LOGIN: "Login",
   REGISTER: "Register",
+  APP: "App",
 });
