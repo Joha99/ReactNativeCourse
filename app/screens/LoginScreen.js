@@ -1,8 +1,10 @@
-import { StyleSheet, Image } from "react-native";
 import React from "react";
+import { AppForm, AppFormField, SubmitButton } from "../components/forms/index";
+import { StyleSheet, Image } from "react-native";
 import Screen from "../components/Screen";
 import * as Yup from "yup";
-import { AppForm, AppFormField, SubmitButton } from "../components/forms/index";
+import { auth } from "../../firebase/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 // validation schema
 const validationSchema = Yup.object().shape({
@@ -11,12 +13,23 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function LoginScreen() {
+  const handleLogin = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("User signed in", user);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log("Error signing in", errorMessage);
+      });
+  };
   return (
     <Screen style={styles.container}>
       <Image style={styles.logo} source={require("../assets/logo-red.png")} />
       <AppForm
         initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log("Submitted Login:", values)}
+        onSubmit={({ email, password }) => handleLogin(email, password)}
         validationSchema={validationSchema}
       >
         <AppFormField

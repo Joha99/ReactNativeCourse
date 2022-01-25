@@ -1,8 +1,14 @@
-import { StyleSheet } from "react-native";
 import React from "react";
+import { AppForm, AppFormField, SubmitButton } from "../components/forms/index";
+import { StyleSheet } from "react-native";
 import Screen from "../components/Screen";
 import * as Yup from "yup";
-import { AppForm, AppFormField, SubmitButton } from "../components/forms/index";
+import { auth } from "../../firebase/firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
 // validation schema
 const validationSchema = Yup.object().shape({
@@ -12,11 +18,25 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function RegisterScreen() {
+  const handleRegister = (email, password) => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("User created", user);
+        alert("Successful register");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log("Error registering", errorMessage);
+        alert("Unsuccessful register");
+      });
+  };
+
   return (
     <Screen style={styles.container}>
       <AppForm
         initialValues={{ name: "", email: "", password: "" }}
-        onSubmit={(values) => console.log("Submitted Register:", values)}
+        onSubmit={({ email, password }) => handleRegister(email, password)}
         validationSchema={validationSchema}
       >
         <AppFormField
