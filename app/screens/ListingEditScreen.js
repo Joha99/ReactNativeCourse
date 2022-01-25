@@ -11,13 +11,15 @@ import FormImagePicker from "../components/forms/FormImagePicker";
 import * as Yup from "yup";
 import { db } from "../../firebase/firebase";
 import { collection, addDoc } from "firebase/firestore";
+import routes from "../navigation/routes";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
   price: Yup.number().required().min(1).max(10000).label("Price"),
-  description: Yup.string().label("Description"),
-  category: Yup.object().required().nullable().label("Category"),
-  images: Yup.array().required().min(1, "Please select at least one image"),
+  description: Yup.string().required().label("Description"),
+  category: Yup.object().nullable().label("Category"),
+  // images: Yup.array().required().min(1, "Please select at least one image"),
+  images: Yup.array(),
 });
 
 const categories = [
@@ -32,7 +34,7 @@ const categories = [
   { label: "Others", value: 9, backgroundColor: "gray", icon: "lock" },
 ];
 
-function ListingEditScreen() {
+function ListingEditScreen({ navigation }) {
   const addListing = async (listing) => {
     try {
       const docRef = await addDoc(collection(db, "listings"), {
@@ -60,6 +62,7 @@ function ListingEditScreen() {
         onSubmit={(values) => {
           console.log(values);
           addListing(values);
+          navigation.navigate(routes.FEED);
         }}
         validationSchema={validationSchema}
       >

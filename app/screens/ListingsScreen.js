@@ -22,7 +22,7 @@ export default function ListingsScreen({ navigation }) {
 
   useEffect(() => {
     getListings();
-  }, []);
+  });
 
   return (
     <Screen style={styles.screen}>
