@@ -20,14 +20,14 @@ export default function RegisterScreen() {
     // create user in firebase authentication
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("User created", user);
-        alert("Successful register");
+        console.log(
+          "Successful register of user with ID",
+          userCredential.user.uid
+        );
       })
       .catch((error) => {
         const errorMessage = error.message;
         console.log("Error registering", errorMessage);
-        alert("Unsuccessful register");
       });
 
     //create user in firestore
@@ -35,14 +35,9 @@ export default function RegisterScreen() {
       firstName: firstName,
       lastName: lastName,
       email: email,
-    })
-      .then((docRef) => alert("Added user in Firestore with ID", docRef.id))
-      .catch((error) => {
-        const errorMessage = error.message;
-        alert("Unsuccessful at adding user to Firestore", errorMessage);
-      });
+    });
 
-    console.log("Document written with ID: ", docRef.id);
+    console.log("Document written with ID ", docRef.id);
   };
 
   return (
