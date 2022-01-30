@@ -7,8 +7,9 @@ import Icon from "../components/Icon";
 import colors from "../config/colors";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
 import { signOut } from "firebase/auth";
-import { auth } from "../../firebase/firebase";
+import { auth, db } from "../../firebase/firebase";
 import routes from "../navigation/routes";
+import { collection } from "firebase/firestore";
 
 const menuItems = [
   {
@@ -24,6 +25,7 @@ const menuItems = [
 
 export default function AccountScreen({ navigation }) {
   const logOut = () => {
+    console.log(auth);
       signOut(auth).then(() => {
         console.log("User Logged Out");
         navigation.navigate(routes.WELCOME);
@@ -32,12 +34,32 @@ export default function AccountScreen({ navigation }) {
         console.log(error)
       });
   };
+  const getUserEmail = () => {
+    if (auth) {
+      return auth.currentUser.email;
+    } else {
+      return "Error";
+    }
+  }
+  const getUserName = () => {
+    // let email = getUserEmail();
+    // console.log(email);
+    // let info = collection('users').get().then((querySnapshot) => {
+    //   querySnapshot.forEach(element => {
+    //     let data = element.data();
+    //     console.log(data);
+    //   });
+    // });
+    // console.log(info);
+    return "CS 4261 Tester";
+  }
+
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
         <ListItem
-          title="Joha Kim"
-          subTitle="johakim9936@gmail.com"
+          title={getUserName()}
+          subTitle={getUserEmail()}
           image={require("../assets/mosh.jpg")}
         />
       </View>
