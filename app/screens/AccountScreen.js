@@ -6,6 +6,9 @@ import Colors from "../config/colors";
 import Icon from "../components/Icon";
 import colors from "../config/colors";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
+import routes from "../navigation/routes";
 
 const menuItems = [
   {
@@ -20,6 +23,15 @@ const menuItems = [
 ];
 
 export default function AccountScreen({ navigation }) {
+  const logOut = () => {
+      signOut(auth).then(() => {
+        console.log("User Logged Out");
+        navigation.navigate(routes.WELCOME);
+      }
+      ).catch((error) =>{
+        console.log(error)
+      });
+  };
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
@@ -53,6 +65,7 @@ export default function AccountScreen({ navigation }) {
       <ListItem
         title="Log Out"
         IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+        onPress={() => logOut()}
       />
     </Screen>
   );

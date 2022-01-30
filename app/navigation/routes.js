@@ -7,4 +7,5 @@ export default Object.freeze({
   LOGIN: "Login",
   REGISTER: "Register",
   APP: "App",
+  WELCOME: "Welcome"
 });
