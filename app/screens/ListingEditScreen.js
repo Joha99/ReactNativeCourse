@@ -32,7 +32,10 @@ const categories = [
   { label: "Sports", value: 6, backgroundColor: "blue", icon: "lock" },
   { label: "Movies & Music", value: 7, backgroundColor: "blue", icon: "lock" },
   { label: "Books", value: 8, backgroundColor: "purple", icon: "lock" },
-  { label: "Others", value: 9, backgroundColor: "gray", icon: "lock" },
+  { label: "Electronics", value: 9, backgroundColor: "brown", icon: "lock" },
+  { label: "Health", value: 10, backgroundColor: "black", icon: "lock" },
+  { label: "Pets", value: 11, backgroundColor: "white", icon: "lock" },
+  { label: "Others", value: 12, backgroundColor: "gray", icon: "lock" },
 ];
 
 function ListingEditScreen({ navigation }) {
