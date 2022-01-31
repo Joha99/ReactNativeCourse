@@ -9,7 +9,6 @@ import ListItemSeparator from "../components/lists/ListItemSeparator";
 import { signOut } from "firebase/auth";
 import { auth, db } from "../../firebase/firebase";
 import routes from "../navigation/routes";
-import { collection } from "firebase/firestore";
 
 const menuItems = [
   {
@@ -51,7 +50,11 @@ export default function AccountScreen({ navigation }) {
     //   });
     // });
     // console.log(info);
-    return "CS 4261 Tester";
+    if (auth) {
+      return auth.currentUser.displayName;
+    } else {
+      return "CS 4261 Tester";
+    }
   }
 
   return (
