@@ -9,6 +9,12 @@ function ListingDetailsScreen({ navigation, route }) {
   const listing = route.params;
 
   console.log(listing);
+  const getOwner = (listing) => {
+    if (listing.owner) {
+      return listing.owner;
+    }
+    return "A Seller"
+  }
 
   return (
     <View>
@@ -19,7 +25,7 @@ function ListingDetailsScreen({ navigation, route }) {
         <View style={styles.userContainer}>
           <ListItem
             image={require("../assets/mosh.jpg")}
-            title="Mosh Hamedani"
+            title={getOwner(listing)}
             subTitle="5 Listings"
           />
         </View>
