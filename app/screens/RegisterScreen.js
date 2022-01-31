@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import Screen from "../components/Screen";
 import * as Yup from "yup";
 import { auth, db } from "../../firebase/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { collection, addDoc } from "firebase/firestore";
 
 // validation schema
@@ -24,6 +24,14 @@ export default function RegisterScreen() {
           "Successful register of user with ID",
           userCredential.user.uid
         );
+        if(userCredential.user) {
+          updateProfile(userCredential.user, {displayName: firstName + " " + lastName});
+          // userCredential.user.updateProfile({
+          //   displayName: firstName + " " + lastName
+          // }).then((s) => {
+          //   console.log("done")
+          // })
+        }
       })
       .catch((error) => {
         const errorMessage = error.message;
