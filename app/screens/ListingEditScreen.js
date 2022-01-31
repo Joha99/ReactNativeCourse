@@ -9,9 +9,10 @@ import {
 import Screen from "../components/Screen";
 import FormImagePicker from "../components/forms/FormImagePicker";
 import * as Yup from "yup";
-import { db } from "../../firebase/firebase";
+import { auth, db } from "../../firebase/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import routes from "../navigation/routes";
+
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -41,6 +42,7 @@ function ListingEditScreen({ navigation }) {
         title: listing.title,
         price: listing.price,
         description: listing.description,
+        owner: auth.currentUser.displayName,
       });
       console.log("Document written with ID: ", docRef.id);
       alert("Succesfully added new listing");
